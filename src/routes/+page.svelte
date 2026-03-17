@@ -12,9 +12,7 @@
 
     async function loadTodos() {
         const res = await fetch("/api/list");
-        console.log("list api res: " + res);
         todos = await res.json();
-        console.log("list api todos: " + todos);
     }
 
     onMount(() => {

@@ -7,9 +7,6 @@ export const GET: RequestHandler = async ()  => {
 
     const response = new Response(JSON.stringify(result), { status: 200 });
 
-    console.log(response);
-
-
     return response;
 
 }
