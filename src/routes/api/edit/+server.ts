@@ -4,20 +4,27 @@ import { error } from "console";
 
 export const PUT: RequestHandler = async ({ request }) => {
     const body = await request.json();
-    const { text } = body;
+    const { id, text } = body;
 
-    if (!text) {
-        return new Response(JSON.stringify({ error: "text required" }) , {
+    if (!text || !id) {
+        return new Response(JSON.stringify({ error: "not found" }) , {
             status: 400
         });
     }
 
-    const stmt = db.prepare("UPDATE todos SET text = ?");
-    const result = stmt.run(text);
+    const stmt = db.prepare("UPDATE todos SET text = ? WHERE id = ?");
+    const result = stmt.run(text, id);
+
+    if (result.changes === 0) {
+        return new Response(JSON.stringify({ error: "not found" }), {
+            status: 400
+        });
+    }
+
 
     return new Response(
         JSON.stringify({
-            id: result.lastInsertRowid,
+            id,
             text,
             done: 0
         }),

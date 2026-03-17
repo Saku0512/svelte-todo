@@ -5,6 +5,6 @@ export const db = new Database("todo.db");
 db.prepare(`
 CREATE TABLE IF NOT EXISTS todos (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    text TEX NOT NULL,
-    done INTEGER NOT NULL DEFAULT 0)
+    text TEXT NOT NULL,
+    done BOOLEAN NOT NULL DEFAULT false)
 `).run();
